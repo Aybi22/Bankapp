@@ -8,6 +8,17 @@ h1{
   padding:0;  
 }
 
+:root{
+    --header-color:#255AE2;
+    --button-color:#679C75;
+    --withdraw-color:#FD280C;
+    --button-text-color:#fff;
+    --title-font: roboto;
+    --text-font:montserrat;
+    --card-border:1px solid#E5E5E5;
+    --card-border-radius:25px;
+}
+
 body,html{
       width:100%;
       height:100vh;
@@ -23,7 +34,8 @@ margin:auto;
 }
 
 main{
-    background:green;
+    border:var(--card-border);
+    border-radius: var(--card-border-radius);
     width:100%;
     height:400px;
     grid-column:span 2;
@@ -31,18 +43,21 @@ main{
 }
 
 .deposit-box{
-    border:2px solid black;
+    border:var(--card-border);
+    border-radius: var(--card-border-radius);
     width:100%;
     height:400px;
 }
 .transfer-box{
-    border:2px solid blue;
+    border:var(--card-border);
+    border-radius: var(--card-border-radius);
     width:100%;
     min-height:400px;
     grid-row: span 2;
 }
 .list-container{
-    border:2px solid orange;
+     border:var(--card-border);
+    border-radius: var(--card-border-radius);
     width:100%;
     min-height:400px;
     grid-column:span 2;
