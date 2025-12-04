@@ -1,0 +1,46 @@
+h1{
+    text-transform:uppercase;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;  
+}
+
+body,html{
+      width:100%;
+      height:100vh;
+}
+.page-container{
+
+    display:grid;
+    grid-template-areas: 
+    "header header header header header"
+    
+    "aside aside main main main"
+    
+    "section section section section section";
+    
+
+}
+
+main{
+    grid-area:main;
+    background:pink;
+}
+
+header{
+    grid-area: header;
+    background:skyblue;
+}
+aside{
+    grid-area:aside;
+    background:yellow;
+}
+
+section{
+    grid-area:section;
+    background:violet;
+}
+
