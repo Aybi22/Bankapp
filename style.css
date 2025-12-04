@@ -30,6 +30,7 @@ body,html{
    grid-template-rows: repeat(3,1fr);
    max-width:1300px;
    margin:auto;
+   gap:23px;
 
 }
 
