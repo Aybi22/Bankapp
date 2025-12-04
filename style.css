@@ -15,32 +15,35 @@ body,html{
 .page-container{
 
     display:grid;
-    grid-template-areas: 
-    "header header header header header"
-    
-    "aside aside main main main"
-    
-    "section section section section section";
-    
+   grid-template-columns: repeat(2,1fr);
+   grid-template-rows: repeat(3,1fr);
+max-width:1300px;
+margin:auto;
 
 }
 
 main{
-    grid-area:main;
-    background:pink;
+    background:green;
+    width:100%;
+    height:400px;
+    grid-column:span 2;
+   
 }
 
-header{
-    grid-area: header;
-    background:skyblue;
+.deposit-box{
+    border:2px solid black;
+    width:100%;
+    height:400px;
 }
-aside{
-    grid-area:aside;
-    background:yellow;
+.transfer-box{
+    border:2px solid blue;
+    width:100%;
+    min-height:400px;
+    grid-row: span 2;
 }
-
-section{
-    grid-area:section;
-    background:violet;
+.list-container{
+    border:2px solid orange;
+    width:100%;
+    min-height:400px;
+    grid-column:span 2;
 }
-
