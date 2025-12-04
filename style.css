@@ -105,3 +105,9 @@ main{
     padding:1rem;
     cursor:pointer;
 }
+
+.list-content{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid grey;
+}
