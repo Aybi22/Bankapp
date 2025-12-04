@@ -62,3 +62,15 @@ main{
     min-height:400px;
     grid-column:span 2;
 }
+.name-input{
+    width:600px;
+}
+
+.btn{
+    width:700px;
+    background:var(--header-color);
+    color:var(--button-text-color);
+    text-align: center;
+    border:none;
+    padding:1rem;
+}
