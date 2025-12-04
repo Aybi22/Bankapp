@@ -16,13 +16,14 @@
 <body>
 
   
-<header><h1>bank app</h1>
+<header>
+    <h1>bank app</h1>
 
 </header>
 <div class="page-container"> 
 
 <main>
-    <div class="main-content">
+   <div class="section-content">
 <h2>create account</h2>
 <p>
 <label for="name">Name</label>
@@ -30,11 +31,19 @@
 <p>
 <input type="text" class="name-input" placeholder="Enter name">
 </p>
-<button class="btn">create account</button>
+<button class="account-btn">create account</button>
+
+
+<p class="feedback"></p>
+
+
 </div>
+
+
 </main>
 
 <section class="deposit-box">
+    <div class="section-content">
 <h2>deposit / withdraw</h2>
 <p>
 <label for="amount">Amount</label>
@@ -44,10 +53,14 @@
 </p>
 <button class="bttn deposit">deposit</button>
 <button class="bttn  withdraw">withdraw</button>
+
+
+<p class="feedback"></p>
+</div>
 </section>
 
 <section class="transfer-box">
-
+<div class="section-content">
 <h2>transfer</h2>
 <p>
 <label for="sender">sender name</label>
@@ -75,6 +88,9 @@
 
 <button class="bttn transfer">transfer</button>
 
+<p class="feedback"></p>
+
+</div>
 </section>
 
 
@@ -84,12 +100,13 @@
 </section>
 
 <section class="list-container">
+    <div class="section-content">
 <h2> account list / balances</h2>
 <div class="list-content">
 <p class="names">name</p>
 <p class="balance">balance</p>
 </div>
-
+</div>
 </section>
 
 
