@@ -66,13 +66,14 @@ section{
 
 .bttn{
     border:none;
-    max-width:250px;
+    max-width:242px;
     width:100%;
     cursor:pointer;
     padding:1rem;
     color:var(--button-text-color);
     text-align:center;
     text-transform: capitalize;
+    border-radius: 7px;                                                                                                         ;
 }
 .bttn-section{
     display:flex;
