@@ -38,10 +38,13 @@ h1,h2,h3{
 }
 header{
     background: var(--header-color);
+    padding:1rem;
 }
 h1{
     color:var(--button-text-color);
-    text-align: center;
+    display:flex;
+    justify-content:center;
+    gap:1rem;
 }
 
 main{
@@ -115,8 +118,12 @@ background:var(--button-color);
     gap:1rem;
     justify-content:center;
 }
-
-
+.account-name{
+    display:none;
+}
+.showform{
+    display:block;
+}
 .section-content{
     display:flex;
     flex-direction:column;
