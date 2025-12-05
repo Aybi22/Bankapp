@@ -22,7 +22,7 @@ document.addEventListener("click", (e) => {
 });
 
 function showForm() {
-  let accountForm = document.querySelector(".account-name");
+  let accountForm = document.querySelector(".account-form");
   accountForm.classList.toggle("showform");
 }
 

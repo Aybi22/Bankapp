@@ -115,16 +115,16 @@ background:var(--button-color);
  display:flex;
     gap:1rem;
     justify-content:center;
+    align-items: center;
 }
 .withdraw{
     background:var(--withdraw-color);
      display:flex;
     gap:1rem;
     justify-content:center;
+    align-items: center;
 }
-.account-name{
-    display:none;
-}
+
 .showform{
     display:block;
 }
