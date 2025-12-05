@@ -83,6 +83,11 @@ section{
    
     gap:1rem;
 }
+label{
+    font-size:17px;
+    font-weight:lighter;
+    text-transform:capitalize;
+}
 
 .transfer{
     background:var(--button-color)
