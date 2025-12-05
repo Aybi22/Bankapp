@@ -168,6 +168,7 @@ background:var(--button-color)
     border:none;
     padding:1rem;
     cursor:pointer;
+    border-radius:7px;
 }
 
 .list-content{
