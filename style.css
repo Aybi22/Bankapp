@@ -97,10 +97,16 @@ label{
 }
 
 .deposit{
-background:var(--button-color)
+background:var(--button-color);
+ display:flex;
+    gap:1rem;
+    justify-content:center;
 }
 .withdraw{
     background:var(--withdraw-color);
+     display:flex;
+    gap:1rem;
+    justify-content:center;
 }
 
 
