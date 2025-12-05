@@ -90,7 +90,10 @@ label{
 }
 
 .transfer{
-    background:var(--button-color)
+    background:var(--button-color);
+    display:flex;
+    gap:1rem;
+    justify-content:center;
 }
 
 .deposit{
@@ -169,6 +172,9 @@ background:var(--button-color)
     padding:1rem;
     cursor:pointer;
     border-radius:7px;
+}
+.fa-arrow-right-arrow-left{
+   
 }
 
 .list-content{
