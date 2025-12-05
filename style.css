@@ -58,6 +58,9 @@ main{
     flex-direction:column;
     gap:1rem;
 }
+main h2{
+    text-align:center;
+}
 
 
 section{
