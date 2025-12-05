@@ -39,15 +39,18 @@ h1,h2,h3{
 header{
     background: var(--header-color);
     padding:1rem;
+    margin-bottom:1rem;
 }
 h1{
     color:var(--button-text-color);
     display:flex;
     justify-content:center;
     gap:1rem;
-    margin-bottom:1rem;
+    
 }
-
+.account-form{
+    display:none;
+}
 main{
     border:var(--card-border);
     border-radius: var(--card-border-radius);
