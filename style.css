@@ -36,6 +36,9 @@ h1,h2,h3{
    gap:23px;
 
 }
+header{
+    background: var(--header-color);
+}
 
 main{
     border:var(--card-border);
