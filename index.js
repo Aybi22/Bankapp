@@ -46,7 +46,7 @@ function setAccount() {
 
     let balance = userAccount.getBalance();
 
-    feedback.innerHTML = `<p class="success"> Thank you to create a new account ${owner}, your balance is £${balance}</p>`;
+    feedback.innerHTML = `<p class="success"> Thank you to create a new account <span class="owner"> ${owner}</span>, your balance is £${balance}</p>`;
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner} :£${balance}</p>`;
   } else {
@@ -85,7 +85,7 @@ function depositMoney() {
   let owner = input.value;
   let account = bank.findOwner(owner);
   if (!account) {
-    feedback.innerHTML = "Please, create an account before depositing!";
+    feedback.innerHTML = `<p class="error">Please, create an account before depositing!</p>`;
     sumInput.value = "";
     return;
   }
@@ -95,7 +95,7 @@ function depositMoney() {
   sumInput.value = "";
   let balance = account.getBalance();
   if (balance && userAccount) {
-    feedback.innerHTML = `Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance}`;
+    feedback.innerHTML = `<p class="success">Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance}</p>`;
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
   } else {
@@ -107,7 +107,7 @@ function depositMoney() {
 
 function withdrawals() {
   if (!userAccount) {
-    feedback.innerHTML = `Please, create an account before withdrawing!`;
+    feedback.innerHTML = `<p class="error">Please, create an account before withdrawing!</p>`;
   } else {
     let sumInput = document.querySelector(".amount-field");
     let input = document.querySelector(".account-name");
@@ -121,7 +121,7 @@ function withdrawals() {
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
 
-    feedback.innerHTML = `withdrew:£${amount}, balance:£${balance}!`;
+    feedback.innerHTML = `<p class="success">withdrew:£${amount}, balance:£${balance}!</p>`;
   }
   updateAccount();
 }
@@ -129,7 +129,7 @@ function withdrawals() {
 function transfer() {
   if (!userAccount) {
     document.body.style.backgroundColor = "pink";
-    feedback.innerHTML = `please, create an account before making a transfer `;
+    feedback.innerHTML = `<p class="error">please, create an account before making a transfer </p>`;
   }
 
   let transferAmount = document.querySelector(".transfer-amount");
@@ -150,18 +150,18 @@ function transfer() {
 
   if (!findSender || !findReceiver) {
     let feedback = document.querySelector(".feedback");
-    feedback.innerHTML = `no account found `;
+    feedback.innerHTML = `<p class="error">No account found `;
     return; //stop the function.
   }
 
   if (!transAmount) {
-    feedback.innerHTML = `enter amount before making transfer `;
+    feedback.innerHTML = `<p class="error">Enter amount before making transfer </p>`;
     return; //stop the function.
   }
 
   if (transAmount > balance || balance === 0) {
     let feedback = document.querySelector(".feedback");
-    feedback.innerHTML = `insufficient funds `;
+    feedback.innerHTML = `<p class="error">insufficient funds</p> `;
     return; //stop the function.
   }
   if (findSender && findReceiver) {
