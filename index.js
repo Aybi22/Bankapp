@@ -37,7 +37,7 @@ function setAccount() {
 
   let owner = input.value;
   if (!input.value) {
-    feedback.innerHTML = "Please,enter your name before creating an account!";
+    feedback.innerHTML = `<p class="error">Please, enter your name before creating an account!</p>`;
     return; //stop the function
   }
   if (!bank.findOwner(owner)) {
@@ -46,7 +46,7 @@ function setAccount() {
 
     let balance = userAccount.getBalance();
 
-    feedback.innerHTML = `Thank you to create a new account ${owner},your balance is £${balance}`;
+    feedback.innerHTML = `<p class="success"> Thank you to create a new account ${owner}, your balance is £${balance}</p>`;
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner} :£${balance}</p>`;
   } else {
@@ -85,7 +85,7 @@ function depositMoney() {
   let owner = input.value;
   let account = bank.findOwner(owner);
   if (!account) {
-    feedback.innerHTML = "Please,create an account before depositing!";
+    feedback.innerHTML = "Please, create an account before depositing!";
     sumInput.value = "";
     return;
   }
@@ -129,7 +129,7 @@ function withdrawals() {
 function transfer() {
   if (!userAccount) {
     document.body.style.backgroundColor = "pink";
-    feedback.innerHTML = `please,create an account before making a transfer `;
+    feedback.innerHTML = `please, create an account before making a transfer `;
   }
 
   let transferAmount = document.querySelector(".transfer-amount");

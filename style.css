@@ -27,12 +27,18 @@ h1,h2,h3{
     text-transform:capitalize;
     font-family: roboto;
 }
+.error{
+    color:red;
+}
+.success{
+    color:#155724;
+}
 
 button,p{
     font-family:montserrat;
-    font-size:1.1rem;
-    font-weight: 700;
-    text-transform: capitalize;
+    font-size:1rem;
+    font-weight: normal;
+    
 }
 .amount-text{
     
