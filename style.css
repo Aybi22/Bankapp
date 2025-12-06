@@ -30,9 +30,12 @@ h1,h2,h3{
 
 button,p{
     font-family:montserrat;
-    font-size:1.3rem;
+    font-size:1.1rem;
     font-weight: 700;
     text-transform: capitalize;
+}
+.amount-text{
+    
 }
 
 
