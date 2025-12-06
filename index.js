@@ -1,10 +1,8 @@
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("create")) {
     console.log("clicked:", e.target.classList);
-    return showForm();
-  }
-  if (e.target.classList.contains("submit")) {
-    return setAccount();
+    showForm();
+    setAccount();
   }
 
   if (e.target.classList.contains("deposit-btn")) {
@@ -23,11 +21,6 @@ document.addEventListener("click", (e) => {
 function showForm() {
   let accountForm = document.querySelector(".account-form");
   accountForm.classList.toggle("showform");
-  if (accountForm) {
-    let accountBtn = document.querySelector(".account-create");
-    console.log(accountBtn);
-    accountBtn.style.display = "none";
-  }
 }
 
 let bank = createBank();
@@ -166,8 +159,6 @@ function transfer() {
   }
   if (findSender && findReceiver) {
     bank.transfer(sender, receiver, transAmount);
-
-    document.body.style.backgroundColor = "pink";
 
     feedback.innerHTML = `${sender} sent £${transAmount} to ${receiver}`;
   }
