@@ -52,6 +52,11 @@ h1{
     display: none;
     
 }
+.account-list{
+display:flex;
+justify-content: space-between;
+border-bottom: 1px solid gainsboro;
+}
 .account-form input{
     max-width: 600px;
     width:100%;
