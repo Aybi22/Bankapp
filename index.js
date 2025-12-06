@@ -129,8 +129,7 @@ function withdrawals() {
 
 function transfer() {
   if (!userAccount) {
-    document.body.style.backgroundColor = "pink";
-    feedback.innerHTML = `<p class="error">please, create an account before making a transfer <span class="error-icon">X</span></p>`;
+    feedback.innerHTML = `<p class="error">Please, create an account before making a transfer <span class="error-icon">X</span></p>`;
   }
 
   let transferAmount = document.querySelector(".transfer-amount");
