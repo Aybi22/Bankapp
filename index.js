@@ -60,15 +60,22 @@ function updateAccount() {
   let allAccounts = bank.showAllAccounts();
   accountList.innerHTML = "";
   allAccounts.forEach((accounts) => {
-    let newUl = document.createElement("ul");
-    newUl.innerHTML = `
-    
+    let newDiv = document.createElement("div");
+    newDiv.innerHTML = `
+  
 
-<li> name:${accounts.getOwner()}</li>
-<li>balance:£${accounts.getBalance()}</li>
+<div class="name">
+<p> name</p>
+<p>${accounts.getOwner()}</p>
 
+</div>
+<div class="balance">
+<p>balance:</p>
+<p>£${accounts.getBalance()}</p>
+</div>
+</div>
 `;
-    accountList.appendChild(newUl);
+    accountList.appendChild(newDiv);
   });
 }
 function depositMoney() {
