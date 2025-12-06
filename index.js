@@ -46,7 +46,8 @@ function setAccount() {
 
     let balance = userAccount.getBalance();
 
-    feedback.innerHTML = `<p class="success"> Thank you to create a new account <span class="owner"> ${owner}</span>, your balance is £${balance}</p>`;
+    feedback.innerHTML = `<p class="success"> Thank you to create a new account <span class="owner"> ${owner}</span>, your balance is £${balance} <i class="fa-solid fa-check"></i></p>`;
+
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner} :£${balance}</p>`;
   } else {
