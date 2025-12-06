@@ -49,6 +49,16 @@ h1{
     
 }
 .account-form{
+    display: none;
+    
+}
+.account-form input{
+    max-width: 600px;
+    width:100%;
+    padding:1rem;
+}
+
+.submit-btn{
     display:none;
 }
 main{
@@ -103,21 +113,21 @@ label{
     text-transform:capitalize;
 }
 
-.transfer{
+.transfer-btn{
     background:var(--button-color);
     display:flex;
     gap:1rem;
     justify-content:center;
 }
 
-.deposit{
+.deposit-btn{
 background:var(--button-color);
  display:flex;
     gap:1rem;
     justify-content:center;
     align-items: center;
 }
-.withdraw{
+.withdraw-btn{
     background:var(--withdraw-color);
      display:flex;
     gap:1rem;
@@ -128,6 +138,7 @@ background:var(--button-color);
 .showform{
     display:block;
 }
+
 .section-content{
     display:flex;
     flex-direction:column;
@@ -188,7 +199,7 @@ background:var(--button-color);
 .account-btn{
     max-width:600px;
     width:100%;
-    background:var(--header-color);
+
     color:var(--button-text-color);
     text-align: center;
     text-transform:capitalize;
@@ -197,6 +208,15 @@ background:var(--button-color);
     cursor:pointer;
     border-radius:7px;
 }
+
+.submit{
+    background-color: var(--withdraw-color);
+}
+
+.create{
+    background:var(--header-color);
+}
+
 .fa-arrow-right-arrow-left{
    
 }

@@ -25,6 +25,7 @@
 <main>
       <div class="main-content">
 <h2>create account</h2>
+<div id="deposit-box">Balance:£0</div>
 
 <div class="account-form">
 <p>
@@ -33,8 +34,9 @@
 <p>
 <input type="text" class="account-name" placeholder="Enter name">
 </p>
+<button class=" account-btn submit">submit</button>
 </div>
-<button class="account-btn">create account</button>
+<button class="account-btn create">create account</button>
 
 
 <p class="feedback"></p>
@@ -52,11 +54,11 @@
 <label for="amount">Amount</label>
 </p>
 <p>
-<input type="text" class="amount-input" placeholder="Enter amount">
+<input type="text" class="amount-field" placeholder="Enter amount">
 </p>
 <div class="bttn-section">
-<button class="bttn deposit">deposit<i class="fa-solid fa-plus"></i></button>
-<button class="bttn  withdraw">withdraw<i class="fa-solid fa-minus"></i></button>
+<button class="bttn deposit-btn">deposit<i class="fa-solid fa-plus"></i></button>
+<button class="bttn  withdraw-btn">withdraw<i class="fa-solid fa-minus"></i></button>
 </div>
 
 <p class="feedback"></p>
@@ -70,14 +72,14 @@
 <label for="sender">sender name</label>
 </p>
 <p>
-<input type="text" class="amount-input" placeholder="Enter sender name">
+<input type="text" class="sender" placeholder="Enter sender name">
 </p>
 
 <p>
 <label for="receiver">receiver name</label>
 </p>
 <p>
-<input type="text" class="amount-input" placeholder="Enter receiver name">
+<input type="text" class="receiver" placeholder="Enter receiver name">
 </p>
 
 
@@ -85,12 +87,12 @@
 <label for="amount">amount</label>
 </p>
 <p>
-<input type="text" class="amount-input" placeholder="Enter amount">
+<input type="text" class="amount" placeholder="Enter amount">
 </p>
 
 
 
-<button class="bttn transfer">transfer<i class="fa-solid fa-arrow-right-arrow-left"></i> </button>
+<button class="bttn transfer-btn">transfer<i class="fa-solid fa-arrow-right-arrow-left"></i> </button>
 
 <p class="feedback"></p>
 
@@ -106,7 +108,7 @@
 <section class="list-container">
     <div class="section-content">
 <h2> account list / balances</h2>
-<div class="list-content">
+<div class="account-list">
 <p class="names">name</p>
 <p class="balance">balance</p>
 </div>

@@ -1,10 +1,9 @@
 document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("account-btn")) {
+  if (e.target.classList.contains("create")) {
     console.log("clicked:", e.target.classList);
     return showForm();
   }
-
-  if (e.target.classList.contains("submit-btn")) {
+  if (e.target.classList.contains("submit")) {
     return setAccount();
   }
 
@@ -24,19 +23,24 @@ document.addEventListener("click", (e) => {
 function showForm() {
   let accountForm = document.querySelector(".account-form");
   accountForm.classList.toggle("showform");
+  if (accountForm) {
+    let accountBtn = document.querySelector(".account-create");
+    console.log(accountBtn);
+    accountBtn.style.display = "none";
+  }
 }
 
 let bank = createBank();
 let userAccount;
 let feedback = document.querySelector(".feedback");
 function clearInput() {
-  let input = document.querySelector(".accountname");
+  let input = document.querySelector(".account-name");
   let sumInput = document.querySelector(".amount-field");
   input.value = "";
   sumInput.value = "";
 }
 function setAccount() {
-  let input = document.querySelector(".accountname");
+  let input = document.querySelector(".account-name");
 
   let owner = input.value;
   if (!input.value) {
@@ -51,7 +55,7 @@ function setAccount() {
 
     feedback.innerHTML = `Thank you to create a new account ${owner},your balance is £${balance}`;
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text">£${balance}</p>`;
+    depositBox.innerHTML = `<p class="amount-text">${owner} :£${balance}</p>`;
   } else {
     //“Hey bank, please store this new account for this owner inside your accounts list.”
 
@@ -76,7 +80,7 @@ function updateAccount() {
 }
 function depositMoney() {
   let sumInput = document.querySelector(".amount-field");
-  let input = document.querySelector(".accountname");
+  let input = document.querySelector(".account-name");
   let amount = sumInput.value;
   let owner = input.value;
   let account = bank.findOwner(owner);
@@ -93,7 +97,7 @@ function depositMoney() {
   if (balance && userAccount) {
     feedback.innerHTML = `Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance}`;
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text">£${balance}</p>`;
+    depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
   } else {
     feedback.innerHTML = `Please, add money before depositing!`;
   }
@@ -106,7 +110,7 @@ function withdrawals() {
     feedback.innerHTML = `Please, create an account before withdrawing!`;
   } else {
     let sumInput = document.querySelector(".amount-field");
-    let input = document.querySelector(".accountname");
+    let input = document.querySelector(".account-name");
 
     let owner = input.value;
     let account = bank.findOwner(owner);
@@ -115,7 +119,7 @@ function withdrawals() {
 
     userAccount.withdraw(amount);
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text">£${balance}</p>`;
+    depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
 
     feedback.innerHTML = `withdrew:£${amount}, balance:£${balance}!`;
   }
