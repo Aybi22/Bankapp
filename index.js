@@ -132,11 +132,11 @@ function transfer() {
     feedback.innerHTML = `please,create an account before making a transfer `;
   }
 
-  let sumInput = document.querySelector(".amount-field");
+  let transferAmount = document.querySelector(".transfer-amount");
   let receiverInput = document.querySelector(".receiver");
   let senderInput = document.querySelector(".sender");
 
-  let amount = parseInt(sumInput.value);
+  let transAmount = parseInt(transferAmount.value);
   let receiver = receiverInput.value;
   let sender = senderInput.value;
 
@@ -154,22 +154,22 @@ function transfer() {
     return; //stop the function.
   }
 
-  if (!amount) {
+  if (!transAmount) {
     feedback.innerHTML = `enter amount before making transfer `;
     return; //stop the function.
   }
 
-  if (amount > balance || balance === 0) {
+  if (transAmount > balance || balance === 0) {
     let feedback = document.querySelector(".feedback");
     feedback.innerHTML = `insufficient funds `;
     return; //stop the function.
   }
   if (findSender && findReceiver) {
-    bank.transfer(sender, receiver, amount);
+    bank.transfer(sender, receiver, transAmount);
 
     document.body.style.backgroundColor = "pink";
 
-    feedback.innerHTML = `${sender} sent £${amount} to ${receiver}`;
+    feedback.innerHTML = `${sender} sent £${transAmount} to ${receiver}`;
   }
   updateAccount();
 }
