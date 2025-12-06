@@ -30,6 +30,43 @@ h1,h2,h3{
 .error{
     color:red;
 }
+.error-icon {
+  color:#fff;
+  background:red;
+  display:flex;
+  font-weight:900;
+  justify-content:center;
+  align-items: center;
+  width:30px;
+  height:30px;
+  border-radius: 100%;
+  
+  font-size: 12px;
+}
+.error{
+    display:flex;
+    gap:1rem;
+    align-items:center;
+}
+
+
+.success {
+  color: #155724;
+  background: #d4edda;
+  border-left: 4px solid #28a745;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
 .success{
     color:#155724;
 }

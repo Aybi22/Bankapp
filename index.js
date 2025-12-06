@@ -37,7 +37,7 @@ function setAccount() {
 
   let owner = input.value;
   if (!input.value) {
-    feedback.innerHTML = `<p class="error">Please, enter your name before creating an account!</p>`;
+    feedback.innerHTML = `<p class="error">Please, enter your name before creating an account!<span class="error-icon">X</span></p>`;
     return; //stop the function
   }
   if (!bank.findOwner(owner)) {
@@ -150,7 +150,7 @@ function transfer() {
 
   if (!findSender || !findReceiver) {
     let feedback = document.querySelector(".feedback");
-    feedback.innerHTML = `<p class="error">No account found `;
+    feedback.innerHTML = `<p class="error">No account found</p> `;
     return; //stop the function.
   }
 
