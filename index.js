@@ -49,7 +49,7 @@ function setAccount() {
     feedback.innerHTML = `<p class="success"> Thank you to create a new account <span class="owner"> ${owner}</span>, your balance is £${balance} <i class="fa-solid fa-check"></i></p>`;
 
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text">${owner} :£${balance}</p>`;
+    depositBox.innerHTML = `<p class="amount-text">${owner} : £${balance}</p>`;
   } else {
     //“Hey bank, please store this new account for this owner inside your accounts list.”
 
@@ -123,8 +123,15 @@ function withdrawals() {
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
 
     feedback.innerHTML = `<p class="success">withdrew:£${amount}, balance:£${balance}!<i class="fa-solid fa-check"></i></p>`;
+
+    if (!amount) {
+      feedback.innerHTML = `<p class="error">Please, add amount before withdrawing!<span class="error-icon">X</span></p>`;
+    }
+    if (amount > balance) {
+      feedback.innerHTML = `<p class="error"> insufficient funds!<span class="error-icon">X</span></p>`;
+    }
+    updateAccount();
   }
-  updateAccount();
 }
 
 function transfer() {
@@ -184,7 +191,7 @@ function createAccount(owner) {
     },
 
     withdraw(amount) {
-      if (balance > amount) {
+      if (balance > amount || balance === amount) {
         return `${owner} withdrew ${amount}.Remaining balance:£${(balance -=
           amount)}`;
       } else {

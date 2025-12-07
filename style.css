@@ -97,7 +97,7 @@ button,p{
     
 }
 .amount-text{
-    
+   text-transform: capitalize; 
 }
 
 
