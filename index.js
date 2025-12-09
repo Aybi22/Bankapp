@@ -2,6 +2,7 @@ document.addEventListener("click", (e) => {
   if (e.target.classList.contains("create")) {
     console.log("clicked:", e.target.classList);
     showForm();
+
     setAccount();
   }
 
@@ -20,7 +21,7 @@ document.addEventListener("click", (e) => {
 
 function showForm() {
   let accountForm = document.querySelector(".account-form");
-  accountForm.classList.toggle("showform");
+  accountForm.style.display = "block";
 }
 
 let bank = createBank();
@@ -32,18 +33,17 @@ function clearInput() {
   input.value = "";
   sumInput.value = "";
 }
+
 function setAccount() {
   let input = document.querySelector(".account-name");
-
   let owner = input.value;
   if (!input.value) {
-    feedback.innerHTML = `<p class="error">Please, enter your name before creating an account!<span class="error-icon">X</span></p>`;
-    return; //stop the function
+    return;
   }
   if (!bank.findOwner(owner)) {
     userAccount = bank.createAccount(owner);
     bank.setAccount(userAccount);
-
+    input.value = "";
     let balance = userAccount.getBalance();
 
     feedback.innerHTML = `<p class="success"> Thank you to create a new account <span class="owner"> ${owner}</span>, your balance is £${balance} <i class="fa-solid fa-check"></i></p>`;
@@ -56,6 +56,7 @@ function setAccount() {
     feedback.innerHTML = `<p class="error">you already have an account<span class="error-icon">X</span></p>`;
   }
 }
+
 function updateAccount() {
   let accountList = document.querySelector(".account-list");
   let allAccounts = bank.showAllAccounts();
@@ -81,30 +82,26 @@ function updateAccount() {
 }
 function depositMoney() {
   let sumInput = document.querySelector(".amount-field");
-  let input = document.querySelector(".account-name");
-  let amount = sumInput.value;
-  let owner = input.value;
-  let account = bank.findOwner(owner);
-  if (!account) {
+  let amount = parseFloat(sumInput.value);
+  if (!userAccount) {
     feedback.innerHTML = `<p class="error">Please, create an account before depositing!<span class="error-icon">X</span></p>`;
+  }
+  if (userAccount && amount) {
+    let input = document.querySelector(".account-name");
+    let amount = parseInt(sumInput.value);
+    let owner = input.value;
+    let accountOwner = userAccount.getOwner(owner);
+    userAccount.deposit(amount);
+    let balance = userAccount.getBalance();
     sumInput.value = "";
-    return;
-  }
-  //Check for userAccount – ensures there’s an account to deposit into.
+    feedback.innerHTML = `<p class="success">Thank you, ${accountOwner}. You have deposited £${amount}. Your balance is now £${balance}<i class="fa-solid fa-check"></i></p>`;
 
-  account.deposit(amount);
-  sumInput.value = "";
-  let balance = account.getBalance();
-  if (balance && userAccount) {
-    feedback.innerHTML = `<p class="success">Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance}<i class="fa-solid fa-check"></i></p>`;
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
-  } else {
-    feedback.innerHTML = `<p class="error">Please, add money before depositing!<span class="error-icon">X</span></p>`;
+    depositBox.innerHTML = `<p class="amount-text">${accountOwner}: £${balance}</p>`;
+    updateAccount();
   }
-  console.log(bank.showAllAccounts().length);
-  updateAccount();
 }
+console.log(bank.showAllAccounts().length);
 
 function withdrawals() {
   if (!userAccount) {
@@ -115,7 +112,7 @@ function withdrawals() {
 
     let owner = input.value;
     let account = bank.findOwner(owner);
-    let balance = account.getBalance();
+    let balance = userAccount.getBalance();
     let amount = sumInput.value;
 
     userAccount.withdraw(amount);
