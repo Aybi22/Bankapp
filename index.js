@@ -109,25 +109,23 @@ function withdrawals() {
   } else {
     let sumInput = document.querySelector(".amount-field");
     let input = document.querySelector(".account-name");
-
+    let amount = parseInt(sumInput.value);
     let owner = input.value;
-    let account = bank.findOwner(owner);
-    let balance = userAccount.getBalance();
-    let amount = sumInput.value;
+    let accountOwner = userAccount.getOwner(owner);
 
     userAccount.withdraw(amount);
+    let balance = userAccount.getBalance();
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
+    depositBox.innerHTML = `<p class="amount-text">${accountOwner}: £${balance}</p>`;
 
-    feedback.innerHTML = `<p class="success">withdrew:£${amount}, balance:£${balance}!<i class="fa-solid fa-check"></i></p>`;
-
-    if (!amount) {
-      feedback.innerHTML = `<p class="error">Please, add amount before withdrawing!<span class="error-icon">X</span></p>`;
-    }
-    if (amount > balance) {
-      feedback.innerHTML = `<p class="error"> insufficient funds!<span class="error-icon">X</span></p>`;
-    }
+    feedback.innerHTML = `<p class="success"> Withdrew: £${amount}, Balance: £${balance}!<i class="fa-solid fa-check"></i></p>`;
     updateAccount();
+  }
+  if (!amount) {
+    feedback.innerHTML = `<p class="error">Please, add amount before withdrawing!<span class="error-icon">X</span></p>`;
+  }
+  if (amount > balance) {
+    feedback.innerHTML = `<p class="error"> Insufficient funds!<span class="error-icon">X</span></p>`;
   }
 }
 
@@ -191,7 +189,8 @@ function createAccount(owner) {
       if (balance > amount || balance === amount) {
         return `${owner} withdrew ${amount}.Remaining balance:£${(balance -=
           amount)}`;
-      } else {
+      }
+      if (amount > balance) {
         return `insufficient funds`;
       }
     },
