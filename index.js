@@ -31,6 +31,7 @@ function showForm() {
 }
 
 let bank = createBank();
+let accounts;
 let userAccount;
 let feedback = document.querySelector(".feedback");
 function clearInput() {
@@ -76,7 +77,7 @@ function updateAccount() {
 
 <div class="name">
 <p> name</p>
-<p>${accounts.getOwner()}</p>
+<p class="owner-name">${accounts.getOwner()}</p>
 
 </div>
 <div class="balance">
@@ -85,21 +86,23 @@ function updateAccount() {
 </div>
 </div>
 `;
+
     accountList.appendChild(newDiv);
   });
 }
+
 function depositMoney() {
   let sumInput = document.querySelector(".amount-field");
+
+  let accountOwner = userAccount.getOwner();
+
   let amount = parseFloat(sumInput.value);
-  if (!userAccount) {
+  if (accountOwner) {
     feedback.innerHTML = `<p class="error">Please, create an account before depositing!<span class="error-icon">X</span></p>`;
   }
-  if (userAccount && amount) {
-    let input = document.querySelector(".account-name");
-    let amount = parseInt(sumInput.value);
-    let owner = input.value;
-    let accountOwner = userAccount.getOwner(owner);
+  if (accountOwner && !isNaN(amount) && amount > 0) {
     userAccount.deposit(amount);
+
     let balance = userAccount.getBalance();
     sumInput.value = "";
     feedback.innerHTML = `<p class="success">Thank you, ${accountOwner}. You have deposited £${amount}. Your balance is now £${balance}<i class="fa-solid fa-check"></i></p>`;
@@ -107,6 +110,9 @@ function depositMoney() {
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${accountOwner}: £${balance}</p>`;
     updateAccount();
+  }
+  if (!amount) {
+    feedback.innerHTML = `<p class="error">Please add amount before depositing<span class="error-icon">X</span></p>`;
   }
 }
 console.log(bank.showAllAccounts().length);
@@ -163,6 +169,10 @@ function transfer() {
     feedback.innerHTML = `<p class="error">No account found<span class="error-icon">X</span></p> `;
     return; //stop the function.
   }
+  if (findSender.getBalance() === 0) {
+    feedback.innerHTML = `<p class="error">No enough funds to make transfer<span class="error-icon">X</span> </p>`;
+    return;
+  }
 
   if (!transAmount) {
     feedback.innerHTML = `<p class="error">Enter amount before making transfer<span class="error-icon">X</span> </p>`;
@@ -178,8 +188,9 @@ function transfer() {
     bank.transfer(sender, receiver, transAmount);
 
     feedback.innerHTML = `${sender} sent £${transAmount} to ${receiver}`;
+
+    updateAccount();
   }
-  updateAccount();
 }
 
 function createAccount(owner) {
