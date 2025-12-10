@@ -1,3 +1,9 @@
+let inputName = document.querySelector(".account-name");
+inputName.addEventListener("input", () => {
+  inputName.value = inputName.value.replace(/[^A-Za-z ]/g, "");
+  let feedback = document.querySelector(".feedback");
+  feedback.innerHTML = `<p class="error">Only letters are allowed<span class="error-icon">X</span></p>`;
+});
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("create")) {
     console.log("clicked:", e.target.classList);
@@ -37,9 +43,11 @@ function clearInput() {
 function setAccount() {
   let input = document.querySelector(".account-name");
   let owner = input.value;
+
   if (!input.value) {
     return;
   }
+
   if (!bank.findOwner(owner)) {
     userAccount = bank.createAccount(owner);
     bank.setAccount(userAccount);
@@ -148,7 +156,7 @@ function transfer() {
   let findReceiver = bank
     .showAllAccounts()
     .find((account) => account.getOwner() === receiver);
-  let balance = findSender.getBalance();
+  let balance = userAccount.getBalance();
 
   if (!findSender || !findReceiver) {
     let feedback = document.querySelector(".feedback");
