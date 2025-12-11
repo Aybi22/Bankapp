@@ -27,7 +27,10 @@ h1,h2,h3{
     text-transform:capitalize;
     font-family: roboto;
 }
-
+.find{
+    background:var(--button-color);
+    color:var(--button-text-color)
+}
 .owner-name{
     color:red;
     cursor:pointer;

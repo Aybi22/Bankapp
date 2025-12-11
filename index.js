@@ -23,6 +23,9 @@ document.addEventListener("click", (e) => {
   if (e.target.classList.contains("transfer-btn")) {
     return transfer();
   }
+  if (e.target.classList.contains("find")) {
+    return findAccount();
+  }
 });
 
 function showForm() {
@@ -93,14 +96,18 @@ function updateAccount() {
 
 function depositMoney() {
   let sumInput = document.querySelector(".amount-field");
-
+  let input = document.querySelector(".account-name");
+  let owner = input.value.trim();
   let accountOwner = userAccount.getOwner();
+  let accountFound = bank
+    .showAllAccounts()
+    .find((account) => account.getOwner() === owner);
 
   let amount = parseFloat(sumInput.value);
   if (accountOwner) {
     feedback.innerHTML = `<p class="error">Please, create an account before depositing!<span class="error-icon">X</span></p>`;
   }
-  if (accountOwner && !isNaN(amount) && amount > 0) {
+  if ((accountOwner && !isNaN(amount) && amount > 0) || accountFound) {
     userAccount.deposit(amount);
 
     let balance = userAccount.getBalance();
@@ -188,6 +195,26 @@ function transfer() {
     bank.transfer(sender, receiver, transAmount);
 
     feedback.innerHTML = `${sender} sent £${transAmount} to ${receiver}`;
+
+    updateAccount();
+  }
+}
+
+function findAccount() {
+  let input = document.querySelector(".account-name");
+  let owner = input.value.trim();
+
+  let accountFound = bank
+    .showAllAccounts()
+    .find((account) => account.getOwner() === owner);
+
+  if (accountFound) {
+    let sumInput = document.querySelector(".amount-field");
+    let amount = parseInt(sumInput.value);
+    accountFound.deposit(amount);
+    let balance = accountFound.getBalance();
+    let depositBox = document.getElementById("deposit-box");
+    depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
 
     updateAccount();
   }
