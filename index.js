@@ -98,30 +98,28 @@ function updateAccount() {
 
 function depositMoney() {
   let sumInput = document.querySelector(".amount-field");
-  let input = document.querySelector(".account-name");
-  let owner = input.value;
   let amount = parseFloat(sumInput.value);
   if (userAccount && amount) {
+    let sumInput = document.querySelector(".amount-field");
     let owner = userAccount.getOwner();
-
+    let amount = parseFloat(sumInput.value);
     userAccount.deposit(amount);
     let balance = userAccount.getBalance();
+    feedback.innerHTML = `<p class="success">Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance}<i class="fa-solid fa-check"></i></p>`;
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
     updateAccount();
-  } else {
-    feedback.innerHTML = `<p class="error">Please create an account before depositing<span class="error-icon">X</span></p>`;
   }
-
-  if (userAccount && !amount) {
-    feedback.innerHTML = `<p class="error">Please  add amount before depositing<span class="error-icon">X</span></p>`;
+  if (!userAccount) {
   }
-
+  let input = document.querySelector(".account-name");
+  let owner = input.value;
   let accountFound = bank
     .showAllAccounts()
     .find((account) => account.getOwner() === owner);
 
   if (accountFound && !isNaN(amount) && amount > 0) {
+    let sumInput = document.querySelector(".amount-field");
     let owner = accountFound.getOwner();
     document.body.style.backgroundColor = "orange";
     let amount = parseFloat(sumInput.value);
@@ -134,8 +132,6 @@ function depositMoney() {
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
     updateAccount();
-
-    return;
   }
 }
 
