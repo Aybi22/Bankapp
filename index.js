@@ -225,7 +225,7 @@ function findAccount() {
     let balance = accountFound.getBalance();
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
-    feedback.innerHTML = `account and balance is ${balance}`;
+    feedback.innerHTML = `<p class="success">Account found, Balance : £${balance}</p>`;
 
     updateAccount();
   }
