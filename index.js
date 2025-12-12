@@ -23,6 +23,7 @@ document.addEventListener("click", (e) => {
   if (e.target.classList.contains("transfer-btn")) {
     return transfer();
   }
+
   if (e.target.classList.contains("find")) {
     return findAccount();
   }
@@ -62,6 +63,7 @@ function setAccount() {
 
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner} : £${balance}</p>`;
+    updateAccount();
   } else {
     //“Hey bank, please store this new account for this owner inside your accounts list.”
 
@@ -97,31 +99,46 @@ function updateAccount() {
 function depositMoney() {
   let sumInput = document.querySelector(".amount-field");
   let input = document.querySelector(".account-name");
-  let owner = input.value.trim();
-  let accountOwner = userAccount.getOwner();
+  let owner = input.value;
+  let amount = parseFloat(sumInput.value);
+  if (userAccount && amount) {
+    let owner = userAccount.getOwner();
+
+    userAccount.deposit(amount);
+    let balance = userAccount.getBalance();
+    let depositBox = document.getElementById("deposit-box");
+    depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
+    updateAccount();
+  } else {
+    feedback.innerHTML = `<p class="error">Please create an account before depositing<span class="error-icon">X</span></p>`;
+  }
+
+  if (userAccount && !amount) {
+    feedback.innerHTML = `<p class="error">Please  add amount before depositing<span class="error-icon">X</span></p>`;
+  }
+
   let accountFound = bank
     .showAllAccounts()
     .find((account) => account.getOwner() === owner);
 
-  let amount = parseFloat(sumInput.value);
-  if (accountOwner) {
-    feedback.innerHTML = `<p class="error">Please, create an account before depositing!<span class="error-icon">X</span></p>`;
-  }
-  if ((accountOwner && !isNaN(amount) && amount > 0) || accountFound) {
-    userAccount.deposit(amount);
+  if (accountFound && !isNaN(amount) && amount > 0) {
+    let owner = accountFound.getOwner();
+    document.body.style.backgroundColor = "orange";
+    let amount = parseFloat(sumInput.value);
+    accountFound.deposit(amount);
 
-    let balance = userAccount.getBalance();
+    let balance = accountFound.getBalance();
     sumInput.value = "";
-    feedback.innerHTML = `<p class="success">Thank you, ${accountOwner}. You have deposited £${amount}. Your balance is now £${balance}<i class="fa-solid fa-check"></i></p>`;
+    feedback.innerHTML = `<p class="success">Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance}<i class="fa-solid fa-check"></i></p>`;
 
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text">${accountOwner}: £${balance}</p>`;
+    depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
     updateAccount();
-  }
-  if (!amount) {
-    feedback.innerHTML = `<p class="error">Please add amount before depositing<span class="error-icon">X</span></p>`;
+
+    return;
   }
 }
+
 console.log(bank.showAllAccounts().length);
 
 function withdrawals() {
@@ -209,16 +226,32 @@ function findAccount() {
     .find((account) => account.getOwner() === owner);
 
   if (accountFound) {
+    let balance = accountFound.getBalance();
+    let depositBox = document.getElementById("deposit-box");
+    depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
+    feedback.innerHTML = `account and balance is ${balance}`;
+
+    updateAccount();
+  }
+
+  if (!accountFound) {
+    feedback.innerHTML = `<p class="error">no account found<span class="error-icon">X</span></p>`;
+  }
+}
+
+/*
+  if (accountFound) {
     let sumInput = document.querySelector(".amount-field");
     let amount = parseInt(sumInput.value);
     accountFound.deposit(amount);
-    let balance = accountFound.getBalance();
+let accountOwner = userAccount.getOwner();
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
 
     updateAccount();
   }
 }
+  */
 
 function createAccount(owner) {
   let balance = 0;
