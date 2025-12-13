@@ -93,13 +93,16 @@ function updateAccount() {
 `;
 
     accountList.appendChild(newDiv);
+    localStorage.setItem("name", accounts.getOwner());
+    let savedName = localStorage.getItem("name");
+    console.log(savedName);
   });
 }
 
 function depositMoney() {
   let sumInput = document.querySelector(".amount-field");
   let amount = parseFloat(sumInput.value);
-  if (userAccount && amount) {
+  if (userAccount && amount && !isNaN(amount) && amount > 0) {
     let sumInput = document.querySelector(".amount-field");
     let owner = userAccount.getOwner();
     let amount = parseFloat(sumInput.value);
@@ -110,7 +113,9 @@ function depositMoney() {
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
     updateAccount();
   }
-  if (!userAccount) {
+  if (!userAccount || !amount) {
+    let button = document.querySelector(".find");
+    button.disable = true;
   }
   let input = document.querySelector(".account-name");
   let owner = input.value;
@@ -132,6 +137,9 @@ function depositMoney() {
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
     updateAccount();
+  }
+  if (!accountFound) {
+    feedback.innerHTML = `<p class="error">create an account before depositing<span class="error-icon">X</span></p>`;
   }
 }
 
