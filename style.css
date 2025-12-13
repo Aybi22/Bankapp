@@ -113,7 +113,7 @@ button,p{
 .page-container{
 
     display:grid;
-   grid-template-columns: repeat(2,1fr);
+   grid-template-columns: repeat(3,1fr);
    grid-template-rows: repeat(3,1fr);
    max-width:1300px;
    margin:auto;
@@ -281,7 +281,8 @@ background:var(--button-color);
     border-radius: var(--card-border-radius);
     width:100%;
     height:auto;
-    grid-column:span 2;
+    
+    grid-row: span 3;
    box-shadow:
     0 1px 3px rgba(0,0,0,0.12),
     0 4px 8px rgba(0,0,0,0.06);

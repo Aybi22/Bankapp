@@ -1,3 +1,22 @@
+document.addEventListener("DOMContentLoaded", () => {
+  let savedAccounts = JSON.parse(localStorage.getItem("savedAccount"));
+  let accountList = document.querySelector(".account-list");
+
+  accountList.innerHTML = `
+  <div class="name">
+<p> name</p>
+<p class="owner-name">${savedAccounts.owner}</p>
+
+</div>
+<div class="balance">
+<p>balance:</p>
+<p>£${savedAccounts.balance}</p>
+</div>
+</div>
+ 
+`;
+});
+
 let inputName = document.querySelector(".account-name");
 inputName.addEventListener("input", () => {
   inputName.value = inputName.value.replace(/[^A-Za-z ]/g, "");
@@ -56,7 +75,9 @@ function setAccount() {
   if (!bank.findOwner(owner)) {
     userAccount = bank.createAccount(owner);
     bank.setAccount(userAccount);
+
     input.value = "";
+
     let balance = userAccount.getBalance();
 
     feedback.innerHTML = `<p class="success"> Thank you to create a new account <span class="owner"> ${owner}</span>, your balance is £${balance} <i class="fa-solid fa-check"></i></p>`;
@@ -64,6 +85,13 @@ function setAccount() {
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner} : £${balance}</p>`;
     updateAccount();
+
+    localStorage.setItem(
+      "savedAccount",
+      JSON.stringify(bank.showAllAccounts())
+    );
+    let savedAccounts = JSON.parse(localStorage.getItem("savedAccount"));
+    console.log(savedAccounts);
   } else {
     //“Hey bank, please store this new account for this owner inside your accounts list.”
 
@@ -93,9 +121,6 @@ function updateAccount() {
 `;
 
     accountList.appendChild(newDiv);
-    localStorage.setItem("name", accounts.getOwner());
-    let savedName = localStorage.getItem("name");
-    console.log(savedName);
   });
 }
 
@@ -113,10 +138,13 @@ function depositMoney() {
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
     updateAccount();
   }
-  if (!userAccount || !amount) {
-    let button = document.querySelector(".find");
-    button.disable = true;
+  if (userAccount && !amount) {
+    feedback.innerHTML = `<p class="error">Please add amount before depositing<span class="error-icon">X</span></p>`;
   }
+  if (!userAccount) {
+    feedback.innerHTML = `<p class="error">Please create an account before depositing<span class="error-icon">X</span></p>`;
+  }
+
   let input = document.querySelector(".account-name");
   let owner = input.value;
   let accountFound = bank
@@ -138,7 +166,7 @@ function depositMoney() {
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
     updateAccount();
   }
-  if (!accountFound) {
+  if (!accountFound && !userAccount) {
     feedback.innerHTML = `<p class="error">create an account before depositing<span class="error-icon">X</span></p>`;
   }
 }
@@ -237,9 +265,8 @@ function findAccount() {
 
     updateAccount();
   }
-
   if (!accountFound) {
-    feedback.innerHTML = `<p class="error">no account found<span class="error-icon">X</span></p>`;
+    feedback.innerHTML = `<p class="error">No account found<span class="error-icon">X</span></p>`;
   }
 }
 
