@@ -119,7 +119,7 @@ function depositMoney() {
     let amount = parseFloat(sumInput.value);
     userAccount.deposit(amount);
     let balance = userAccount.getBalance();
-    feedback.innerHTML = `<p class="success">Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance}<i class="fa-solid fa-check"></i></p>`;
+    feedback.innerHTML = `<p class="success">Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance} <i class="fa-solid fa-check"></i></p>`;
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
     updateAccount();
@@ -148,7 +148,7 @@ function depositMoney() {
 
     let balance = accountFound.getBalance();
     sumInput.value = "";
-    feedback.innerHTML = `<p class="success">Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance}<i class="fa-solid fa-check"></i></p>`;
+    feedback.innerHTML = `<p class="success">Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance} <i class="fa-solid fa-check"></i></p>`;
 
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
@@ -187,7 +187,7 @@ function withdrawals() {
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${accountOwner}: £${balance}</p>`;
 
-    feedback.innerHTML = `<p class="success"> Withdrew: £${amount}, Balance: £${balance}!<i class="fa-solid fa-check"></i></p>`;
+    feedback.innerHTML = `<p class="success"> Withdrew: £${amount}, Balance: £${balance}! <i class="fa-solid fa-check"></i></p>`;
     updateAccount();
   }
   if (!amount) {
@@ -245,7 +245,7 @@ function transfer() {
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${sender}: £${balance}</p>`;
     let feedback = document.querySelector(".feedback");
-    feedback.innerHTML = `<p class="success">Thank you ${sender}, you successfully sent  £${transAmount} to ${receiver}, balance: £${balance}<i class="fa-solid fa-check"></i> </p>`;
+    feedback.innerHTML = `<p class="success">Thank you ${sender}, you successfully sent  £${transAmount} to ${receiver},your balance is now: £${balance} <i class="fa-solid fa-check"></i> </p>`;
     updateAccount();
   }
 }
