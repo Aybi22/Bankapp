@@ -245,7 +245,7 @@ function transfer() {
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text">${sender}: £${balance}</p>`;
     let feedback = document.querySelector(".feedback");
-    feedback.innerHTML = `<p class="success">Thank ${sender}, you successfully sent  £${transAmount} to ${receiver}<i class="fa-solid fa-check"></i> </p>`;
+    feedback.innerHTML = `<p class="success">Thank you ${sender}, you successfully sent  £${transAmount} to ${receiver}, balance: £${balance}<i class="fa-solid fa-check"></i> </p>`;
     updateAccount();
   }
 }
