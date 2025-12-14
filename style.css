@@ -31,9 +31,10 @@ h1,h2,h3{
     background:var(--button-color);
     color:var(--button-text-color)
 }
-.owner-name{
-    color:red;
+.owner-name, .owner-balance{
+    font-weight: normal;
     cursor:pointer;
+    text-transform:capitalize;
 }
 .error{
     color:red;
