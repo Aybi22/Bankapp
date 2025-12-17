@@ -29,11 +29,15 @@
 </header>
 <div class="page-container"> 
 
-<main>
+<div class="account-box">
+
+    <div id="deposit-box"><span class="balance"> Balance:£0</span></div>
+</div>
+
+
+    <main>
       <div class="main-content">
 <h2>create account</h2>
-<div id="deposit-box">Balance:£0</div>
-
 <div class="account-form">
 <p>
 <label for="name">Name</label>
@@ -53,14 +57,7 @@
 
 
 </main>
-<section class="list-container">
-    <div class="section-content">
-<h2> account list / balances</h2>
-<div class="account-list">
 
-</div>
-</div>
-</section>
 
 
 <section class="deposit-box">
@@ -70,7 +67,7 @@
 <label for="amount">Amount</label>
 </p>
 <p>
-<input type="text" class="amount-field" placeholder="Enter amount">
+<input type="number" class="amount-field" placeholder="Enter amount">
 </p>
 <div class="bttn-section">
 <button class="bttn deposit-btn">deposit<i class="fa-solid fa-plus"></i></button>
@@ -123,7 +120,14 @@
 
 
 
+<section class="list-container">
+    <div class="section-content">
+<h2> account list / balances</h2>
+<div class="account-list">
 
+</div>
+</div>
+</section>
 
 
 </div>

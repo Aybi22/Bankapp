@@ -18,6 +18,56 @@ h1{
     --card-border:1px solid#E5E5E5;
     --card-border-radius:25px;
 }
+.owner{
+    text-transform:uppercase;
+    font-size:1.5rem;
+}
+.amount-text{
+   display:flex;
+   flex-direction:column;
+   gap:1rem; 
+   
+}
+.account-box{
+    
+}
+
+ let input = document.querySelector(".account-name");
+  let owner = input.value;
+  let accountFound = bank
+    .showAllAccounts()
+    .find((account) => account.getOwner() === owner);
+
+  if (!accountFound && !userAccount) {
+    disableBtn();
+
+    feedback.innerHTML = `<p class="error">Please, create an account before depositing<span class="error-icon">X</span></p>`;
+  }
+  if (!accountFound) {
+    document.body.style.backgroundColor = "pink";
+    disableBtn();
+    feedback.innerHTML = `<p class="error">Please, create an account before depositing<span class="error-icon">X</span></p>`;
+  }
+
+  if (accountFound &&  !isNaN(amount) && amount > 0) {
+    enableBtn();
+
+    let sumInput = document.querySelector(".amount-field");
+    let owner = accountFound.getOwner();
+    document.body.style.backgroundColor = "orange";
+    let amount = parseFloat(sumInput.value);
+    accountFound.deposit(amount);
+
+    let balance = accountFound.getBalance();
+    sumInput.value = "";
+    feedback.innerHTML = `<p class="success">Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance} <i class="fa-solid fa-check"></i></p>`;
+
+    let depositBox = document.getElementById("deposit-box");
+    depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
+    updateAccount();
+  }
+}
+
 
 body,html{
       width:100%;
@@ -250,7 +300,9 @@ background:var(--button-color);
 .section-content input, .btn{
     min-width:0;
 }
-
+.account-box{
+    padding:3rem;
+}
 
 .deposit-box input, .transfer-box input{
     max-width:500px;
@@ -258,8 +310,11 @@ background:var(--button-color);
     padding:0.7rem;
     
 }
-
-.deposit-box{
+.balance{
+    font-size:2rem;
+    font-weight:900;
+}
+.deposit-box, .account-box{
     border:var(--card-border);
     border-radius: var(--card-border-radius);
     width:100%;
