@@ -136,7 +136,7 @@ function depositMoney() {
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span><span class="balance">£${balance}</span></p>`;
     updateAccount();
-    input.value = "";
+    sumInput.value = "";
   }
 }
 
@@ -174,9 +174,29 @@ function findAccount() {
 }
 
 function withdrawals() {
+  let sumInput = document.querySelector(".amount-field");
+
   if (!userAccount) {
+    document.body.style.backgroundColor = "yellow";
     feedback.innerHTML = `<p class="error">Please, create an account before withdrawing!<span class="error-icon">X</span></p>`;
-  } else {
+    return;
+  }
+  if (!amount || amount <= 0) {
+    feedback.innerHTML = `<p class="error">Please, add amount before withdrawing!<span class="error-icon">X</span></p>`;
+
+    return;
+  }
+  let balance = userAccount.getBalance();
+  let amount = parseInt(sumInput.value);
+
+  if (amount > balance) {
+    document.body.style.backgroundColor = "red";
+    feedback.innerHTML = `<p class="error"> Insufficient funds!<span class="error-icon">X</span></p>`;
+    return;
+  }
+
+  if (userAccount && amount) {
+    document.body.style.backgroundColor = "violet";
     let sumInput = document.querySelector(".amount-field");
     let input = document.querySelector(".account-name");
     let amount = parseInt(sumInput.value);
@@ -190,12 +210,6 @@ function withdrawals() {
 
     feedback.innerHTML = `<p class="success"> Withdrew: £${amount}, Balance: £${balance}! <i class="fa-solid fa-check"></i></p>`;
     updateAccount();
-  }
-  if (!amount || amount <= 0) {
-    feedback.innerHTML = `<p class="error">Please, add amount before withdrawing!<span class="error-icon">X</span></p>`;
-  }
-  if (amount > balance) {
-    feedback.innerHTML = `<p class="error"> Insufficient funds!<span class="error-icon">X</span></p>`;
   }
 }
 
@@ -273,7 +287,7 @@ function createAccount(owner) {
     },
 
     deposit(amount) {
-      return (balance += parseInt(amount));
+      return (balance += parseFloat(amount));
     },
 
     withdraw(amount) {
