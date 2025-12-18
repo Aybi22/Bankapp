@@ -47,7 +47,7 @@ function clearInput() {
 
 function setAccount() {
   let input = document.querySelector(".account-name");
-  let owner = input.value;
+  let owner = input.value.trim().toLowerCase();
 
   if (!input.value) {
     return;
@@ -175,19 +175,27 @@ function findAccount() {
 
 function withdrawals() {
   let sumInput = document.querySelector(".amount-field");
+  let input = document.querySelector(".account-name");
+  let owner = input.value;
+  enableBtn();
+  let accountFound = bank
+    .showAllAccounts()
+    .find((accounts) => accounts.getOwner() === owner);
+  let userAccount = accountFound;
 
   if (!userAccount) {
     document.body.style.backgroundColor = "yellow";
     feedback.innerHTML = `<p class="error">Please, create an account before withdrawing!<span class="error-icon">X</span></p>`;
     return;
   }
+  let amount = parseInt(sumInput.value);
   if (!amount || amount <= 0) {
     feedback.innerHTML = `<p class="error">Please, add amount before withdrawing!<span class="error-icon">X</span></p>`;
 
     return;
   }
   let balance = userAccount.getBalance();
-  let amount = parseInt(sumInput.value);
+  amount = parseInt(sumInput.value);
 
   if (amount > balance) {
     document.body.style.backgroundColor = "red";
@@ -223,8 +231,8 @@ function transfer() {
   let senderInput = document.querySelector(".sender");
 
   let transAmount = parseInt(transferAmount.value);
-  let receiver = receiverInput.value;
-  let sender = senderInput.value;
+  let receiver = receiverInput.value.trim().toLowerCase();
+  let sender = senderInput.value.trim().toLowerCase();
 
   let findSender = bank
     .showAllAccounts()
@@ -238,6 +246,11 @@ function transfer() {
     let feedback = document.querySelector(".feedback");
     feedback.innerHTML = `<p class="error">No account found<span class="error-icon">X</span></p> `;
     return; //stop the function.
+  }
+  if (receiverInput.value === senderInput.value) {
+    feedback.innerHTML = `<p class="error">you can only transfer between different accounts!<span class="error-icon">X</span> </p>`;
+
+    return;
   }
   if (findSender.getBalance() === 0) {
     feedback.innerHTML = `<p class="error">No enough funds to make transfer<span class="error-icon">X</span> </p>`;
@@ -256,11 +269,15 @@ function transfer() {
   }
   if (findSender && findReceiver) {
     bank.transfer(sender, receiver, transAmount);
+    let receiverBalance = findReceiver.getBalance();
     let balance = findSender.getBalance();
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text">${sender}: <span class="balance">£${balance}</span></p>`;
+    depositBox.innerHTML = `<p class="amount-text">${sender}: <span class="balance">£${balance}</span></p>
+    <i class="fa-solid fa-arrow-right-long"></i><p class="receiver">${receiver} ${receiverBalance}</p>`;
+
     let feedback = document.querySelector(".feedback");
     feedback.innerHTML = `<p class="success">Thank you ${sender}, you successfully sent  £${transAmount} to ${receiver}, your balance is now: £${balance} <i class="fa-solid fa-check"></i> </p>`;
+
     updateAccount();
   }
 }
