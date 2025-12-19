@@ -1,3 +1,35 @@
+document.addEventListener("DOMContentLoaded", () => {
+  let accountList = document.querySelector(".account-list");
+
+  //When you save data to localStorage:JavaScript removes all methods only raw data properties remain the object is no longer an “Account”, just a plain object
+  let savedName = localStorage.getItem("savedName");
+  let savedBalance = localStorage.getItem("savedBalance");
+
+  if (!savedName && savedBalance) {
+    accountList.innerHTML = `<p>account not found</p>`;
+  }
+
+  accountList.innerHTML += `
+  <div class="name">
+<p> Name</p>
+<p class="owner-name">${savedName}</p>
+
+</div>
+<div class="balance">
+<p>Balance:</p>
+<p class="owner-balance">£${savedBalance}</p>
+</div>
+</div>
+`;
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  let depositBox = document.getElementById("deposit-box");
+  let savedName = localStorage.getItem("savedName");
+  let savedBalance = localStorage.getItem("savedBalance");
+  depositBox.innerHTML = `<p class="amount-text"><span class="owner">${savedName}</span> <span class="balance">£${savedBalance}</span></p>`;
+});
+
 let inputName = document.querySelector(".account-name");
 inputName.addEventListener("input", () => {
   inputName.value = inputName.value.replace(/[^A-Za-z ]/g, "");
@@ -69,6 +101,7 @@ function setAccount() {
       "savedAccount",
       JSON.stringify(bank.showAllAccounts())
     );
+
     let savedAccounts = JSON.parse(localStorage.getItem("savedAccount"));
     console.log(savedAccounts);
   } else {
@@ -100,6 +133,7 @@ function updateAccount() {
 `;
     localStorage.setItem("savedName", accounts.getOwner());
     localStorage.setItem("savedBalance", accounts.getBalance());
+
     accountList.appendChild(newDiv);
     let ownerName = document.querySelector(".owner-name");
     console.log(ownerName);
@@ -115,6 +149,7 @@ function depositMoney() {
     .showAllAccounts()
     .find((accounts) => accounts.getOwner() === owner);
   let userAccount = accountFound;
+  localStorage.setItem("activeAccount", userAccount);
   let amount = parseFloat(sumInput.value);
 
   if (!userAccount) {
@@ -242,11 +277,20 @@ function transfer() {
     .find((account) => account.getOwner() === receiver);
   let balance = userAccount.getBalance();
 
-  if (!findSender || !findReceiver) {
+  if (!findSender && !findReceiver) {
     let feedback = document.querySelector(".feedback");
     feedback.innerHTML = `<p class="error">No account found<span class="error-icon">X</span></p> `;
     return; //stop the function.
   }
+
+  if (receiverInput.value === "") {
+    feedback.innerHTML = `<p class="error">Receiver account not found<span class="error-icon">X</span></p> `;
+  }
+
+  if (senderInput.value === "") {
+    feedback.innerHTML = `<p class="error">Sender account not found<span class="error-icon">X</span></p> `;
+  }
+
   if (receiverInput.value === senderInput.value) {
     feedback.innerHTML = `<p class="error">you can only transfer between different accounts!<span class="error-icon">X</span> </p>`;
 
@@ -262,12 +306,12 @@ function transfer() {
     return; //stop the function.
   }
 
-  if (transAmount > balance || balance === 0) {
+  if (transAmount > findSender.getBalance() || findSender.getBalance() === 0) {
     let feedback = document.querySelector(".feedback");
     feedback.innerHTML = `<p class="error">insufficient funds<span class="error-icon">X</span></p> `;
     return; //stop the function.
   }
-  if (findSender && findReceiver) {
+  if (findSender && findReceiver && transAmount) {
     bank.transfer(sender, receiver, transAmount);
     let receiverBalance = findReceiver.getBalance();
     let balance = findSender.getBalance();
