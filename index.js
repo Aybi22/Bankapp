@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   currentAccount = newAccountObj();
-
+  bank.setAccount(currentAccount);
   accountList.innerHTML = `
   <div class="name">
 <p> Name</p>
@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let depositBox = document.getElementById("deposit-box");
 
   depositBox.innerHTML = `<p class="amount-text"><span class="owner">${savedName}</span> <span class="balance">£${savedBalance}</span></p>`;
+  findAccount();
 });
 
 document.addEventListener("click", (e) => {
@@ -216,39 +217,39 @@ document.addEventListener("click", (e) => {
       updateAccount();
     }
   }
+
+  function showAccount() {
+    let accountFinder = document.querySelector(".account-finder");
+    accountFinder.style.display = "block";
+  }
+
+  function findAccount() {
+    let finderInput = document.querySelector(".account-finder");
+    let owner = finderInput.value;
+
+    let accountFound = bank
+      .showAllAccounts()
+      .find((accounts) => accounts.getOwner() === owner);
+    currentAccount = accountFound;
+    if (currentAccount) {
+      let balance = currentAccount.getBalance();
+      let owner = currentAccount.getOwner();
+
+      feedback.innerHTML = `<p class="success">account found: ${owner}, balance:£${balance} <i class="fa-solid fa-check"></i> </p>`;
+      let depositBox = document.getElementById("deposit-box");
+      depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span></p>`;
+      let input = document.querySelector(".account-name");
+      input.value = "";
+      finderInput.value = "";
+    }
+
+    if (!currentAccount) {
+      feedback.innerHTML = `<p class="error">No account found<i class="fa-solid fa-check"></i> </p>`;
+
+      updateAccount();
+    }
+  }
 });
-
-function showAccount() {
-  let accountFinder = document.querySelector(".account-finder");
-  accountFinder.style.display = "block";
-}
-
-function findAccount() {
-  let finderInput = document.querySelector(".account-finder");
-  let owner = finderInput.value;
-
-  let accountFound = bank
-    .showAllAccounts()
-    .find((accounts) => accounts.getOwner() === owner);
-  currentAccount = accountFound;
-  if (currentAccount) {
-    let balance = currentAccount.getBalance();
-    let owner = currentAccount.getOwner();
-
-    feedback.innerHTML = `<p class="success">account found: ${owner}, balance:£${balance} <i class="fa-solid fa-check"></i> </p>`;
-    let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span></p>`;
-    let input = document.querySelector(".account-name");
-    input.value = "";
-    finderInput.value = "";
-  }
-
-  if (!currentAccount) {
-    feedback.innerHTML = `<p class="error">No account found<i class="fa-solid fa-check"></i> </p>`;
-
-    updateAccount();
-  }
-}
 
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("create")) {
