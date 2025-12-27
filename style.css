@@ -9,7 +9,16 @@
     display:block;
 }
 .account-finder{
-    display:none;
+  max-width:400px;
+    width:100%;
+    padding:1rem;
+}
+.account-btn.find{
+    width:200px;
+}
+
+.searchInput{
+    display:flex;
 }
 
 h1{

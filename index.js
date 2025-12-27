@@ -235,9 +235,12 @@ function findAccount() {
     let balance = currentAccount.getBalance();
     let owner = currentAccount.getOwner();
 
-    feedback.innerHTML = `<p class="success">account found, balance:£${balance}<i class="fa-solid fa-check"></i> </p>`;
+    feedback.innerHTML = `<p class="success">account found: ${owner}, balance:£${balance} <i class="fa-solid fa-check"></i> </p>`;
     let depositBox = document.getElementById("deposit-box");
     depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span></p>`;
+    let input = document.querySelector(".account-name");
+    input.value = "";
+    finderInput.value = "";
   }
 
   if (!currentAccount) {
