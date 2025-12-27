@@ -15,6 +15,7 @@
 }
 .account-btn.find{
     width:200px;
+    
 }
 
 .searchInput{
@@ -56,42 +57,7 @@ h1{
     
 }
 
- let input = document.querySelector(".account-name");
-  let owner = input.value;
-  let accountFound = bank
-    .showAllAccounts()
-    .find((account) => account.getOwner() === owner);
-
-  if (!accountFound && !userAccount) {
-    disableBtn();
-
-    feedback.innerHTML = `<p class="error">Please, create an account before depositing<span class="error-icon">X</span></p>`;
-  }
-  if (!accountFound) {
-    document.body.style.backgroundColor = "pink";
-    disableBtn();
-    feedback.innerHTML = `<p class="error">Please, create an account before depositing<span class="error-icon">X</span></p>`;
-  }
-
-  if (accountFound &&  !isNaN(amount) && amount > 0) {
-    enableBtn();
-
-    let sumInput = document.querySelector(".amount-field");
-    let owner = accountFound.getOwner();
-    document.body.style.backgroundColor = "orange";
-    let amount = parseFloat(sumInput.value);
-    accountFound.deposit(amount);
-
-    let balance = accountFound.getBalance();
-    sumInput.value = "";
-    feedback.innerHTML = `<p class="success">Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance} <i class="fa-solid fa-check"></i></p>`;
-
-    let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text">${owner}: £${balance}</p>`;
-    updateAccount();
-  }
-}
-
+ 
 
 body,html{
       width:100%;
@@ -396,6 +362,10 @@ background:var(--button-color);
     padding:1rem;
     cursor:pointer;
     border-radius:7px;
+}
+
+.account-btn.find{
+    border-radius: 0px;
 }
 
 .submit{
