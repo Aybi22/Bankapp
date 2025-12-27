@@ -224,8 +224,8 @@ function showAccount() {
 }
 
 function findAccount() {
-  let finderINput = document.querySelector(".account-finder");
-  let owner = finderINput.value;
+  let finderInput = document.querySelector(".account-finder");
+  let owner = finderInput.value;
 
   let accountFound = bank
     .showAllAccounts()
