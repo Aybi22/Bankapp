@@ -6,12 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let accountList = document.querySelector(".account-list");
   let savedName = localStorage.getItem("savedName"); //read all saved account data from storage
   let savedBalance = localStorage.getItem("savedBalance");
+  let savedNum = localStorage.getItem("savedAccountNum");
   //When you save data to localStorage:JavaScript removes all methods only raw data properties remain the object is no longer an “Account”, just a plain object
 
   let newAccountObj = function () {
     let balance = Number(savedBalance);
     let owner = savedName;
-
+    let number = savedNum;
     return {
       getOwner() {
         return owner;
@@ -28,6 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
       transfer(sender, receiver, amount) {
         sender.withdraw(amount);
         receiver.deposit(amount);
+      },
+      accountNumber() {
+        localStorage.setItem("savedAccountNum", number);
+        return number + owner;
       },
 
       getBalance() {
@@ -47,14 +52,15 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="balance">
 <p>Balance:</p>
 <p class="owner-balance">£${savedBalance}</p>
+<p>Account ID</p>
+<p class="owner-balance">${savedNum}</p>
 </div>
 </div>
 `;
 
   let depositBox = document.getElementById("deposit-box");
 
-  depositBox.innerHTML = `<p class="amount-text"><span class="owner">${savedName}</span> <span class="balance">£${savedBalance}</span></p>`;
-  findAccount();
+  depositBox.innerHTML = `<p class="amount-text"><span class="owner">${savedName}</span> <span class="balance">£${savedBalance}</span> <span> Account ID: ${savedNum}</p>`;
 });
 
 document.addEventListener("click", (e) => {
@@ -237,7 +243,7 @@ document.addEventListener("click", (e) => {
 
       feedback.innerHTML = `<p class="success">account found: ${owner}, balance:£${balance} <i class="fa-solid fa-check"></i> </p>`;
       let depositBox = document.getElementById("deposit-box");
-      depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span></p>`;
+      depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span> <span> Account ID: ${accountNumber}</p>`;
       let input = document.querySelector(".account-name");
       input.value = "";
       finderInput.value = "";
@@ -282,14 +288,14 @@ function setAccount() {
 
   if (!bank.findOwner(owner)) {
     currentAccount = bank.createAccount(owner);
-
+    let accountId = currentAccount.accountNumber();
     let balance = currentAccount.getBalance();
     bank.setAccount(currentAccount);
 
     feedback.innerHTML = `<p class="success"> Thank you to create a new account <span class="owner"> ${owner}</span>, your balance is £${balance} <i class="fa-solid fa-check"></i></p>`;
 
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span></p>`;
+    depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}  </span> <span class="num">AccountID: ${accountId} </span></p>  `;
 
     updateAccount();
   } else {
@@ -316,12 +322,14 @@ function updateAccount() {
 <div class="balance">
 <p>Balance:</p>
 <p class="owner-balance">£${accounts.getBalance()}</p>
+<p>Account ID:</p>
+<p class="account-id">${accounts.accountNumber()}</p>
 </div>
 </div>
 `;
     localStorage.setItem("savedName", accounts.getOwner());
     localStorage.setItem("savedBalance", accounts.getBalance());
-
+    localStorage.setItem("savedAccountNum", accounts.accountNumber());
     accountList.appendChild(newDiv);
     let ownerName = document.querySelector(".owner-name");
     console.log(ownerName);
@@ -393,6 +401,7 @@ let accountOwner = userAccount.getOwner();
 
 function createAccount(owner) {
   let balance = 0;
+  let number = 51;
   return {
     getOwner() {
       return owner;
@@ -410,6 +419,9 @@ function createAccount(owner) {
       if (amount > balance) {
         return `insufficient funds`;
       }
+    },
+    accountNumber() {
+      return number + owner;
     },
     getBalance() {
       return balance;
