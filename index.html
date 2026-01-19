@@ -47,13 +47,13 @@
 <label for="name">Name</label>
 </p>
 <p>
-<input type="text" class="account-name"   title="only letters are allowed" placeholder="Enter name" required>
+<input type="text" class="account-name"  pattern="[A-Za-z\s]+"  title="only letters are allowed" placeholder="Enter name" required>
 </p>
 
 </div>
 <button class="account-btn create">create account</button>
 <div class="searchInput">
-<input type="text" class="account-finder"   title="only letters are allowed" placeholder="Find account by name" required>
+<input type="text" class="account-finder"   pattern="[A-Za-z\s]+" title="only letters are allowed" placeholder="Find account by name" required>
 <button type="button" class="account-btn find">find account</button>
 </div>
 <p class="feedback"></p>
@@ -91,14 +91,14 @@
 <label for="sender">sender name</label>
 </p>
 <p>
-<input type="text" class="sender" placeholder="Enter sender name">
+<input type="text"  pattern="[A-Za-z\s]+"  class="sender" placeholder="Enter sender name">
 </p>
 
 <p>
 <label for="receiver">receiver name</label>
 </p>
 <p>
-<input type="text" class="receiver" placeholder="Enter receiver name">
+<input type="text"  pattern="[A-Za-z\s]+"  class="receiver" placeholder="Enter receiver name">
 </p>
 
 
