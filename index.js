@@ -284,7 +284,7 @@ function setAccount() {
 
   if (!bank.findOwner(owner)) {
     currentAccount = bank.createAccount(owner);
-    let accountId = currentAccount.accountNumber();
+   
     let balance = currentAccount.getBalance();
     bank.setAccount(currentAccount);
 
@@ -318,14 +318,13 @@ function updateAccount() {
 <div class="balance">
 <p>Balance:</p>
 <p class="owner-balance">£${accounts.getBalance()}</p>
-<p>Account ID:</p>
-<p class="account-id">${accounts.accountNumber()}</p>
+
 </div>
 </div>
 `;
     localStorage.setItem("savedName", accounts.getOwner());
     localStorage.setItem("savedBalance", accounts.getBalance());
-    localStorage.setItem("savedAccountNum", accounts.accountNumber());
+    
     accountList.appendChild(newDiv);
     let ownerName = document.querySelector(".owner-name");
     console.log(ownerName);
