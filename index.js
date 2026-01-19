@@ -6,13 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let accountList = document.querySelector(".account-list");
   let savedName = localStorage.getItem("savedName"); //read all saved account data from storage
   let savedBalance = localStorage.getItem("savedBalance");
-  let savedNum = localStorage.getItem("savedAccountNum");
+  
   //When you save data to localStorage:JavaScript removes all methods only raw data properties remain the object is no longer an “Account”, just a plain object
 
   let newAccountObj = function () {
     let balance = Number(savedBalance);
     let owner = savedName;
-    let number = savedNum;
+   
     return {
       getOwner() {
         return owner;
