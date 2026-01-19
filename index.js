@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="balance">
 <p>Balance:</p>
 <p class="owner-balance">£${savedBalance}</p>
-<p>Account ID</p>
+
 <p class="owner-balance">${savedNum}</p>
 </div>
 </div>
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let depositBox = document.getElementById("deposit-box");
 
-  depositBox.innerHTML = `<p class="amount-text"><span class="owner">${savedName}</span> <span class="balance">£${savedBalance}</span> <span> Account ID: ${savedNum}</p>`;
+  depositBox.innerHTML = `<p class="amount-text"><span class="owner">${savedName}</span> <span class="balance">£${savedBalance}</span> </p>`;
 });
 
 document.addEventListener("click", (e) => {
@@ -243,7 +243,7 @@ document.addEventListener("click", (e) => {
 
       feedback.innerHTML = `<p class="success">account found: ${owner}, balance:£${balance} <i class="fa-solid fa-check"></i> </p>`;
       let depositBox = document.getElementById("deposit-box");
-      depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span> <span> Account ID: ${accountNumber}</p>`;
+      depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span> </p>`;
       let input = document.querySelector(".account-name");
       input.value = "";
       finderInput.value = "";
@@ -295,7 +295,7 @@ function setAccount() {
     feedback.innerHTML = `<p class="success"> Thank you to create a new account <span class="owner"> ${owner}</span>, your balance is £${balance} <i class="fa-solid fa-check"></i></p>`;
 
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}  </span> <span class="num">AccountID: ${accountId} </span></p>  `;
+    depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}  </span> </p>  `;
 
     updateAccount();
   } else {
@@ -401,7 +401,7 @@ let accountOwner = userAccount.getOwner();
 
 function createAccount(owner) {
   let balance = 0;
-  let number = 51;
+ 
   return {
     getOwner() {
       return owner;
@@ -420,9 +420,7 @@ function createAccount(owner) {
         return `insufficient funds`;
       }
     },
-    accountNumber() {
-      return number + owner;
-    },
+   
     getBalance() {
       return balance;
     },
