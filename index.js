@@ -30,11 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sender.withdraw(amount);
         receiver.deposit(amount);
       },
-      accountNumber() {
-        localStorage.setItem("savedAccountNum", number);
-        return number + owner;
-      },
-
+     
       getBalance() {
         return balance;
       },
@@ -53,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <p>Balance:</p>
 <p class="owner-balance">£${savedBalance}</p>
 
-<p class="owner-balance">${savedNum}</p>
+
 </div>
 </div>
 `;
@@ -68,11 +64,11 @@ document.addEventListener("click", (e) => {
     depositCurrentAccount();
   }
   if (e.target.classList.contains("withdraw-btn")) {
-    document.body.style.backgroundColor = "pink";
+   
     withdrawals();
   }
   if (e.target.classList.contains("transfer-btn")) {
-    document.body.style.backgroundColor = "pink";
+  
     transfer();
   }
   if (e.target.classList.contains("find")) {
