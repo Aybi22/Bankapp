@@ -385,3 +385,14 @@ background:var(--button-color);
     justify-content:space-between;
     border-bottom:1px solid grey;
 }
+
+
+
+@media screen and (max-width:768px){
+    .page-container{
+        display:grid;
+        grid-template-columns:1fr;
+        grid-template-rows:auto;
+        height:auto;
+    }
+}
