@@ -395,4 +395,29 @@ background:var(--button-color);
         grid-template-rows:auto;
         height:auto;
     }
+
+
+ main,
+  section,
+  .account-box,
+  .deposit-box,
+  .transfer-box,
+  .list-container{
+    height:auto;
+    min-height:unset;
+    grid-column:auto;
+    grid-row:auto;
+  }
+
+  section,
+  .main-content{
+    padding:1.5rem;
+  }
+}
+
+
+
+
+
+
 }
