@@ -16,6 +16,12 @@ receiverInput.addEventListener("input", () => {
   receiverInput.value = receiverInput.value.replace(/[^A-Za-z\s]/g, "");
 });
 
+const findInput = document.querySelector(".account-finder");
+
+findInput.addEventListener("input", () => {
+  findInput.value = findInput.value.replace(/[^A-Za-z\s]/g, "");
+});
+
 let currentAccount;
 let bank = createBank();
 let accounts;
