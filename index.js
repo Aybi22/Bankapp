@@ -6,13 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let accountList = document.querySelector(".account-list");
   let savedName = localStorage.getItem("savedName"); //read all saved account data from storage
   let savedBalance = localStorage.getItem("savedBalance");
-  let savedNum = localStorage.getItem("savedAccountNum");
+
   //When you save data to localStorage:JavaScript removes all methods only raw data properties remain the object is no longer an “Account”, just a plain object
 
   let newAccountObj = function () {
     let balance = Number(savedBalance);
     let owner = savedName;
-    let number = savedNum;
+
     return {
       getOwner() {
         return owner;
@@ -27,11 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
         balance -= amount;
       },
 
-      accountNumber() {
-        localStorage.setItem("savedAccountNum", number);
-
-        return number++;
-      },
       transfer(sender, receiver, amount) {
         sender.withdraw(amount);
         receiver.deposit(amount);
@@ -54,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="balance">
 <p>Balance:</p>
 <p class="owner-balance">£${savedBalance}</p>
-
 </div>
 `;
 
@@ -68,11 +62,9 @@ document.addEventListener("click", (e) => {
     depositCurrentAccount();
   }
   if (e.target.classList.contains("withdraw-btn")) {
-    document.body.style.backgroundColor = "pink";
     withdrawals();
   }
   if (e.target.classList.contains("transfer-btn")) {
-    document.body.style.backgroundColor = "pink";
     transfer();
   }
   if (e.target.classList.contains("find")) {
@@ -248,11 +240,10 @@ function findAccount() {
 
     feedback.innerHTML = `<p class="success">account found: ${owner}, balance:£${balance} <i class="fa-solid fa-check"></i> </p>`;
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span>`;
+    depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span> </p>`;
     let input = document.querySelector(".account-name");
     input.value = "";
     finderInput.value = "";
-    updateAccount();
   }
 
   if (!currentAccount) {
@@ -300,7 +291,7 @@ function setAccount() {
     feedback.innerHTML = `<p class="success"> Thank you to create a new account <span class="owner"> ${owner}</span>, your balance is £${balance} <i class="fa-solid fa-check"></i></p>`;
 
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}  </span></p>  `;
+    depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</p>  `;
 
     updateAccount();
   } else {
@@ -405,7 +396,6 @@ let accountOwner = userAccount.getOwner();
 
 function createAccount(owner) {
   let balance = 0;
-  let number = 155150;
   return {
     getOwner() {
       return owner;
