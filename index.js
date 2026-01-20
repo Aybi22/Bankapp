@@ -4,6 +4,18 @@ nameInput.addEventListener("input", () => {
   nameInput.value = nameInput.value.replace(/[^A-Za-z\s]/g, "");
 });
 
+const senderInput = document.querySelector(".sender");
+
+senderInput.addEventListener("input", () => {
+  senderInput.value = senderInput.value.replace(/[^A-Za-z\s]/g, "");
+});
+
+const receiverInput = document.querySelector(".receiver");
+
+receiverInput.addEventListener("input", () => {
+  receiverInput.value = receiverInput.value.replace(/[^A-Za-z\s]/g, "");
+});
+
 let currentAccount;
 let bank = createBank();
 let accounts;
