@@ -26,13 +26,15 @@ document.addEventListener("DOMContentLoaded", () => {
       withdraw(amount) {
         balance -= amount;
       },
+
+      accountNumber() {
+        localStorage.setItem("savedAccountNum", number);
+
+        return number++;
+      },
       transfer(sender, receiver, amount) {
         sender.withdraw(amount);
         receiver.deposit(amount);
-      },
-      accountNumber() {
-        localStorage.setItem("savedAccountNum", number);
-        return number + owner;
       },
 
       getBalance() {
@@ -40,9 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     };
   };
-
   currentAccount = newAccountObj();
   bank.setAccount(currentAccount);
+
   accountList.innerHTML = `
   <div class="name">
 <p> Name</p>
@@ -52,15 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="balance">
 <p>Balance:</p>
 <p class="owner-balance">£${savedBalance}</p>
-<p>Account ID</p>
-<p class="owner-balance">${savedNum}</p>
-</div>
+
 </div>
 `;
 
   let depositBox = document.getElementById("deposit-box");
 
-  depositBox.innerHTML = `<p class="amount-text"><span class="owner">${savedName}</span> <span class="balance">£${savedBalance}</span> <span> Account ID: ${savedNum}</p>`;
+  depositBox.innerHTML = `<p class="amount-text"><span class="owner">${savedName}</span> <span class="balance">£${savedBalance}</span> </p>`;
 });
 
 document.addEventListener("click", (e) => {
@@ -89,6 +89,7 @@ document.addEventListener("click", (e) => {
     if (!amount || amount <= 0) {
       let owner = currentAccount.getOwner();
       let balance = currentAccount.getBalance();
+
       let feedback = document.querySelector(".feedback");
       feedback.innerHTML = `<p class="error">Amount is not valid <span class="error-icon">X</span></p>`;
 
@@ -97,9 +98,11 @@ document.addEventListener("click", (e) => {
       depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span></p>`;
       return;
     }
+
     currentAccount.deposit(amount);
     owner = currentAccount.getOwner();
     let balance = currentAccount.getBalance();
+
     let feedback = document.querySelector(".feedback");
     feedback.innerHTML = `<p class="success">Thank you, ${owner}. You have deposited £${amount}. Your balance is now £${balance} <i class="fa-solid fa-check"></i></p>`;
 
@@ -135,7 +138,6 @@ document.addEventListener("click", (e) => {
     }
 
     if (currentAccount && amount) {
-      document.body.style.backgroundColor = "violet";
       let sumInput = document.querySelector(".amount-field");
       let input = document.querySelector(".account-name");
       let amount = parseInt(sumInput.value);
@@ -144,10 +146,12 @@ document.addEventListener("click", (e) => {
 
       currentAccount.withdraw(amount);
       let balance = currentAccount.getBalance();
+
       let depositBox = document.getElementById("deposit-box");
       depositBox.innerHTML = `<p class="amount-text">${owner}<span class="balance"> £${balance}</span></p>`;
 
       feedback.innerHTML = `<p class="success"> Withdrew: £${amount}, Balance: £${balance}! <i class="fa-solid fa-check"></i></p>`;
+      updateAccount();
     }
   }
 
@@ -223,39 +227,38 @@ document.addEventListener("click", (e) => {
       updateAccount();
     }
   }
-
-  function showAccount() {
-    let accountFinder = document.querySelector(".account-finder");
-    accountFinder.style.display = "block";
-  }
-
-  function findAccount() {
-    let finderInput = document.querySelector(".account-finder");
-    let owner = finderInput.value;
-
-    let accountFound = bank
-      .showAllAccounts()
-      .find((accounts) => accounts.getOwner() === owner);
-    currentAccount = accountFound;
-    if (currentAccount) {
-      let balance = currentAccount.getBalance();
-      let owner = currentAccount.getOwner();
-
-      feedback.innerHTML = `<p class="success">account found: ${owner}, balance:£${balance} <i class="fa-solid fa-check"></i> </p>`;
-      let depositBox = document.getElementById("deposit-box");
-      depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span> <span> Account ID: ${accountNumber}</p>`;
-      let input = document.querySelector(".account-name");
-      input.value = "";
-      finderInput.value = "";
-    }
-
-    if (!currentAccount) {
-      feedback.innerHTML = `<p class="error">No account found<i class="fa-solid fa-check"></i> </p>`;
-
-      updateAccount();
-    }
-  }
 });
+
+function showAccount() {
+  let accountFinder = document.querySelector(".account-finder");
+  accountFinder.style.display = "block";
+}
+
+function findAccount() {
+  let finderInput = document.querySelector(".account-finder");
+  let owner = finderInput.value;
+
+  let accountFound = bank
+    .showAllAccounts()
+    .find((accounts) => accounts.getOwner() === owner);
+  currentAccount = accountFound;
+  if (currentAccount) {
+    let balance = currentAccount.getBalance();
+    let owner = currentAccount.getOwner();
+
+    feedback.innerHTML = `<p class="success">account found: ${owner}, balance:£${balance} <i class="fa-solid fa-check"></i> </p>`;
+    let depositBox = document.getElementById("deposit-box");
+    depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}</span>`;
+    let input = document.querySelector(".account-name");
+    input.value = "";
+    finderInput.value = "";
+    updateAccount();
+  }
+
+  if (!currentAccount) {
+    feedback.innerHTML = `<p class="error">No account found<i class="fa-solid fa-check"></i> </p>`;
+  }
+}
 
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("create")) {
@@ -288,14 +291,16 @@ function setAccount() {
 
   if (!bank.findOwner(owner)) {
     currentAccount = bank.createAccount(owner);
-    let accountId = currentAccount.accountNumber();
+
     let balance = currentAccount.getBalance();
+
     bank.setAccount(currentAccount);
+    console.log(currentAccount.accountNumber);
 
     feedback.innerHTML = `<p class="success"> Thank you to create a new account <span class="owner"> ${owner}</span>, your balance is £${balance} <i class="fa-solid fa-check"></i></p>`;
 
     let depositBox = document.getElementById("deposit-box");
-    depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}  </span> <span class="num">AccountID: ${accountId} </span></p>  `;
+    depositBox.innerHTML = `<p class="amount-text"><span class="owner">${owner}</span> <span class="balance">£${balance}  </span></p>  `;
 
     updateAccount();
   } else {
@@ -322,14 +327,13 @@ function updateAccount() {
 <div class="balance">
 <p>Balance:</p>
 <p class="owner-balance">£${accounts.getBalance()}</p>
-<p>Account ID:</p>
-<p class="account-id">${accounts.accountNumber()}</p>
+
 </div>
 </div>
 `;
     localStorage.setItem("savedName", accounts.getOwner());
     localStorage.setItem("savedBalance", accounts.getBalance());
-    localStorage.setItem("savedAccountNum", accounts.accountNumber());
+
     accountList.appendChild(newDiv);
     let ownerName = document.querySelector(".owner-name");
     console.log(ownerName);
@@ -401,10 +405,13 @@ let accountOwner = userAccount.getOwner();
 
 function createAccount(owner) {
   let balance = 0;
-  let number = 51;
+  let number = 155150;
   return {
     getOwner() {
       return owner;
+    },
+    accountId() {
+      return number;
     },
 
     deposit(amount) {
@@ -420,9 +427,7 @@ function createAccount(owner) {
         return `insufficient funds`;
       }
     },
-    accountNumber() {
-      return number + owner;
-    },
+
     getBalance() {
       return balance;
     },
@@ -436,6 +441,11 @@ function createBank() {
     createAccount(owner) {
       return createAccount(owner);
     },
+
+    accountNumber() {
+      return number++;
+    },
+
     setAccount(account) {
       if (!accounts.includes(account)) accounts.push(account);
     },
@@ -458,3 +468,30 @@ function createBank() {
     },
   };
 }
+
+let cartItem = {
+  name: "bread",
+  price: 5,
+  quantity: 1,
+
+  total() {
+    return this.price * this.quantity;
+  },
+};
+
+localStorage.setItem("savedProduct", JSON.stringify(cartItem));
+let savedCart = JSON.parse(localStorage.getItem("savedProduct"));
+
+let newObj = {
+  name: "bread",
+  price: 5,
+  quantity: 1,
+
+  total() {
+    return savedCart.price * savedCart.quantity;
+  },
+};
+
+Object.assign(savedCart, newObj);
+
+console.log(savedCart);
