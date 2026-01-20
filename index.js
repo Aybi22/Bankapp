@@ -1,3 +1,9 @@
+const nameInput = document.querySelector(".account-name");
+
+nameInput.addEventListener("input", () => {
+  nameInput.value = nameInput.value.replace(/[^A-Za-z\s]/g, "");
+});
+
 let currentAccount;
 let bank = createBank();
 let accounts;
